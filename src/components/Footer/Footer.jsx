@@ -12,7 +12,7 @@ const Footer = () => {
           {/* Logo & About */}
           <div className="flex flex-col items-center md:items-start">
             <h2 className="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400">
-              ShopEase
+             OpenStore
             </h2>
             <p className="mt-4 text-sm leading-relaxed max-w-xs">
               Your one-stop destination for quality products, great deals,

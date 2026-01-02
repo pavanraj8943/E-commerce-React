@@ -14,7 +14,7 @@ const Header = () => {
             <Link to={'/'}>
             <h1 className="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400
             tracking-wide cursor-pointer hover:scale-105 transition">
-              ShopEase
+             OpenStore
             </h1>
             </Link>
           </div>
