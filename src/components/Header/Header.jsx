@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <header className="w-full bg-slate-50 dark:bg-gray-900 shadow-sm
@@ -11,10 +11,12 @@ const Header = () => {
 
           {/* Left: Logo */}
           <div className="flex items-center">
+            <Link to={'/'}>
             <h1 className="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400
             tracking-wide cursor-pointer hover:scale-105 transition">
               ShopEase
             </h1>
+            </Link>
           </div>
 
           {/* Center: Search */}
@@ -37,7 +39,7 @@ const Header = () => {
           <div className="flex items-center justify-end gap-6">
 
             <nav className="hidden md:flex gap-6 text-gray-700 dark:text-gray-200 font-medium">
-              {["Home", "Shop", "Deals", "Contact"].map((item) => (
+              {[<Link to={'/'}>Home</Link>, "Shop", "Deals", "Contact"].map((item) => (
                 <a key={item} href="#" className="relative group">
                   {item}
                   <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-indigo-600
@@ -49,10 +51,6 @@ const Header = () => {
             <button className="relative bg-indigo-600 text-white px-4 py-2 rounded-lg
             hover:bg-indigo-700 transition hover:scale-105">
               🛒
-              <span className="absolute -top-2 -right-2 bg-red-500 text-xs
-              text-white w-5 h-5 flex items-center justify-center rounded-full">
-                2
-              </span>
             </button>
 
           </div>
