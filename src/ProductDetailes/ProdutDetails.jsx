@@ -37,14 +37,14 @@ const ProductDetails = () => {
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12">
         
         {/* LEFT: REFINED MEDIUM IMAGE SECTION */}
-        <div className="lg:col-span-7 flex gap-6 h-[500px]"> 
+        <div className="lg:col-span-7 flex gap-6 "> 
           {/* Vertical Thumbnails */}
           <div className="hidden md:flex flex-col gap-3 w-20 h-full overflow-y-auto no-scrollbar">
             {product.images.map((img, i) => (
               <div 
                 key={i} 
                 onClick={() => setActiveImg(img)}
-                className={`w-full aspect-square cursor-pointer bg-white flex-shrink-0 transition-all duration-300 ${activeImg === img ? 'ring-1 ring-black scale-90' : 'opacity-50 hover:opacity-100'}`}
+                className={`w-full aspect-square cursor-pointer bg-white  transition-all duration-300 ${activeImg === img ? 'ring-1 ring-black scale-90' : 'opacity-50 hover:opacity-100'}`}
               >
                 <img src={img} className="w-full h-full object-contain p-2" alt="thumb" />
               </div>
