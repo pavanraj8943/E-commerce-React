@@ -1,9 +1,19 @@
 import React from "react";
 import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useContext,useState } from "react";
+import { CartContext } from "../../context/CartContext";
+
+
+
 
 const ProductCard = ({ product }) => {
+  const { cart, addCart } = useContext(CartContext);
+  const [effects, setEffects] = useState([]);
+
   if (!product) return null;
+  const isInCart = cart.some(item => item.id === product.id);
 
   const originalPrice = (
     product.price /
@@ -18,23 +28,29 @@ const ProductCard = ({ product }) => {
                  transition-all duration-300
                  flex flex-col group"
     >
-      {/* Wishlist Heart */}
       <button
         type="button"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
+          addCart(product);
         }}
-        className="absolute top-3 right-3 z-10
-                   w-9 h-9 rounded-full
-                   bg-white/80 backdrop-blur
-                \
-                   flex items-center justify-center
-                   text-gray-500 hover:text-red-500
-                   hover:scale-110 transition"
+        className={`
+             absolute top-3 right-3 z-10
+             w-9 h-9 rounded-full
+             bg-white/80 backdrop-blur
+               flex items-center justify-center
+             transition-all duration-300
+              ${isInCart
+            ? "text-red-600 scale-110 animate-heart"
+            : "text-gray-400 hover:text-red-500"}
+  `}
       >
-        <CiHeart size={28} />
+        {isInCart ? <FaHeart size={22} /> : <CiHeart size={26} />}
       </button>
+
+
+
 
       <Link
         to={`/product/${product.id}`}
@@ -76,8 +92,8 @@ const ProductCard = ({ product }) => {
             {product.discountPercentage}% off
           </span>
         </div>
-    
- </Link>
+
+      </Link>
       {/* Bottom Button */}
       <button
         type="button"
@@ -97,7 +113,7 @@ const ProductCard = ({ product }) => {
       >
         View Details
       </button>
-       
+
     </div>
   );
 };

@@ -2,10 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { ProductProvider } from "./context/ProductContext";
-import "./index.css"; 
+import { CartProvider } from "./context/CartContext";
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ProductProvider>
-    <App />
+      <CartProvider>
+      <App />
+    </CartProvider>
   </ProductProvider>
 );

@@ -3,6 +3,7 @@ import { FaCartArrowDown } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
+
 const Header = () => {
   return (
     <header
@@ -62,16 +63,20 @@ const Header = () => {
             </nav>
 
             {/* Cart Button */}
-            <button
-              className="relative bg-indigo-600 text-white px-4 py-2 rounded-lg
-                         hover:bg-indigo-700 transition hover:scale-105"
-            >
-              <FaCartArrowDown size={20} />
-            </button>
+            {/* Cart Button */}
+            <Link to="/cart">
+              <button
+                className="relative bg-indigo-600 text-white px-4 py-2 rounded-lg
+               hover:bg-indigo-700 transition hover:scale-105"
+              >
+                <FaCartArrowDown size={20} />
+              </button>
+            </Link>
+
           </div>
-        </div>
-      </div>
-    </header>
+        </div >
+      </div >
+    </header >
   );
 };
 

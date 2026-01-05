@@ -1,13 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { ProductContext } from "../context/ProductContext";
+import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
+
 
 const ProductDetails = () => {
+  const { cart, addCart } = useContext(CartContext);
+  const navigate = useNavigate();
   const { id } = useParams();
   const { productDetails, fetchProductById } = useContext(ProductContext);
   const [activeImg, setActiveImg] = useState("");
-  const product = productDetails;
-
 
   useEffect(() => {
     fetchProductById(id);
@@ -19,13 +22,17 @@ const ProductDetails = () => {
     }
   }, [productDetails]);
 
-  if (!productDetails) {
-    return (
-      <div className="h-screen flex items-center justify-center uppercase text-xs">
-        Loading Product.....
-      </div>
-    );
-  }
+ if (!productDetails) {
+  return (
+    <div className="h-screen flex items-center justify-center uppercase text-xs">
+      Loading Product.....
+    </div>
+  );
+}
+
+const product = productDetails;
+const isInCart = cart.some(item => item.id === product.id);
+
 
   const discountedPrice = (
     productDetails.price -
@@ -93,12 +100,29 @@ const ProductDetails = () => {
             </div>
 
             <div className="space-y-3 pt-6">
-              <button className="w-full py-5 bg-black text-white text-[11px] uppercase tracking-[0.2em] font-bold hover:bg-neutral-800 transition-colors">
+              <button
+                className="w-full py-5 bg-black text-white text-[11px] uppercase tracking-[0.2em] font-bold hover:bg-neutral-800 transition-colors">
                 Purchase Now
+              </button >
+              <button
+                onClick={() => {
+                  if (isInCart) {
+                    navigate("/cart");
+                  } else {
+                    addCart(product);
+                  }
+                }}
+                className={`w-full py-5 text-[11px] uppercase tracking-[0.2em] font-bold
+                   transition-all
+                    ${isInCart
+                    ? "bg-transparent border border-neutral-200 text-black hover:border-black"
+                    : "bg-transparent border border-neutral-200 text-black hover:border-black"
+                  }
+  `}
+              >
+                {isInCart ? "View Cart" : "Add to Cart"}
               </button>
-              <button className="w-full py-5 bg-transparent border border-neutral-200 text-black text-[11px] uppercase tracking-[0.2em] font-bold hover:border-black transition-all">
-                Add to Bag
-              </button>
+
             </div>
 
             <div className="pt-10 space-y-6 border-t border-neutral-200">
