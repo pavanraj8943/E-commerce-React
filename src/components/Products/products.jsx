@@ -21,8 +21,8 @@ const ProductCard = ({ product }) => {
   return (
     <div
       className="relative bg-white
-                 w-[280px] sm:w-[300px]
-                 min-h-[420px]
+                 w-70 sm:w-75
+                 min-h-105
                  border border-neutral-200
                  rounded-sm
                  hover:border-black

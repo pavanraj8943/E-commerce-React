@@ -56,7 +56,7 @@ const Header = () => {
                             text-neutral-800">
               <Link to="/" className="relative group hover:text-black transition">
                 Home
-                <span className="absolute left-0 -bottom-1 h-[1px] w-0 bg-black
+                <span className="absolute left-0 -bottom-1 h-px w-0 bg-black
                                  transition-all duration-300 group-hover:w-full" />
               </Link>
 
@@ -66,7 +66,7 @@ const Header = () => {
                   className="relative group cursor-pointer hover:text-black transition"
                 >
                   {item}
-                  <span className="absolute left-0 -bottom-1 h-[1px] w-0 bg-black
+                  <span className="absolute left-0 -bottom-1 h-px w-0 bg-black
                                    transition-all duration-300 group-hover:w-full" />
                 </span>
               ))}
