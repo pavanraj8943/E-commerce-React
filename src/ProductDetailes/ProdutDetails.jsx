@@ -1,30 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { ProductContext } from "../context/ProductContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
+  const { productDetails, fetchProductById } = useContext(ProductContext);
   const [activeImg, setActiveImg] = useState("");
+  const product = productDetails;
+
 
   useEffect(() => {
-    fetchProductData();
+    fetchProductById(id);
   }, [id]);
 
-  const fetchProductData = async () => {
-    try {
-      const response = await axios(`https://dummyjson.com/products/${id}`);
-      setProduct(response.data);
-      setActiveImg(response.data.thumbnail);
-    } catch (error) {
-      console.log("Error:", error);
+  useEffect(() => {
+    if (productDetails?.thumbnail) {
+      setActiveImg(productDetails.thumbnail);
     }
-  };
+  }, [productDetails]);
 
-  if (!product) return <div className="h-screen flex items-center justify-center tracking-widest uppercase text-xs">Loading Collection...</div>;
+  if (!productDetails) {
+    return (
+      <div className="h-screen flex items-center justify-center uppercase text-xs">
+        Loading Product.....
+      </div>
+    );
+  }
 
-  const discountedPrice = (product.price - (product.price * product.discountPercentage) / 100).toFixed(2);
-
+  const discountedPrice = (
+    productDetails.price -
+    (productDetails.price * productDetails.discountPercentage) / 100
+  ).toFixed(2);
   return (
     <div className="bg-[#fafafa] min-h-screen pb-20 font-sans">
       {/* Top Breadcrumb */}
@@ -35,14 +41,14 @@ const ProductDetails = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12">
-        
+
         {/* LEFT: REFINED MEDIUM IMAGE SECTION */}
-        <div className="lg:col-span-7 flex gap-6 "> 
+        <div className="lg:col-span-7 flex gap-6 ">
           {/* Vertical Thumbnails */}
           <div className="hidden md:flex flex-col gap-3 w-20 h-full overflow-y-auto no-scrollbar">
             {product.images.map((img, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 onClick={() => setActiveImg(img)}
                 className={`w-full aspect-square cursor-pointer bg-white  transition-all duration-300 ${activeImg === img ? 'ring-1 ring-black scale-90' : 'opacity-50 hover:opacity-100'}`}
               >
@@ -56,11 +62,11 @@ const ProductDetails = () => {
             <div className="absolute top-6 left-6 z-10 bg-black text-white px-3 py-1 text-[9px] font-bold uppercase tracking-tighter">
               {product.discountPercentage}% Off
             </div>
-            
-            <img 
-              src={activeImg} 
-              alt={product.title} 
-              className="max-h-[80%] max-w-[80%] object-contain transition-transform duration-700 group-hover:scale-110" 
+
+            <img
+              src={activeImg}
+              alt={product.title}
+              className="max-h-[80%] max-w-[80%] object-contain transition-transform duration-700 group-hover:scale-110"
             />
           </div>
         </div>
@@ -83,6 +89,7 @@ const ProductDetails = () => {
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 {product.availabilityStatus} — {product.stock} units
               </div>
+
             </div>
 
             <div className="space-y-3 pt-6">
@@ -104,11 +111,13 @@ const ProductDetails = () => {
                   <h4 className="text-[10px] uppercase font-bold tracking-widest mb-1 text-neutral-400">Return Policy</h4>
                   <p className="text-sm text-neutral-600">{product.returnPolicy}</p>
                 </div>
+
+
               </div>
-              
+
               <div className="p-4 bg-white border border-neutral-100 flex items-center gap-4">
                 <img src={product.meta.qrCode} className="w-10 h-10 opacity-40" alt="qr" />
-                <p className="text-[9px] text-neutral-400 leading-tight tracking-wider uppercase font-medium">Authenticity Guaranteed <br/> <span className="font-bold text-black">{product.sku}</span></p>
+                <p className="text-[9px] text-neutral-400 leading-tight tracking-wider uppercase font-medium">Authenticity Guaranteed <br /> <span className="font-bold text-black">{product.sku}</span></p>
               </div>
             </div>
           </div>
